@@ -1,0 +1,127 @@
+---
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+
+const allBlogPosts = await getCollection('blog');
+const sortedPosts = allBlogPosts.sort((a: CollectionEntry<'blog'>, b: CollectionEntry<'blog'>) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<MainLayout title="Weinbar38 - Wein aus Wiesbaden">
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-background">
+            <div class="wine-stain wine-stain-1"></div>
+            <div class="wine-stain wine-stain-2"></div>
+            <div class="noise-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-label">Weinkultur aus Wiesbaden</div>
+            <h1 class="hero-title">
+                <span class="title-line">Weinbar38</span>
+                <span class="title-line title-highlight">Unser Weinblog</span>
+            </h1>
+            <p class="hero-subtitle">Kreative Geschichten treffen Weinkultur</p>
+            <div class="hero-divider">
+                <span class="divider-ornament">◆</span>
+            </div>
+            <p class="hero-description">
+                Weinbar38 bietet kulinarische Geschichten und Weinwissen in entspannter
+                Atmosphäre für Weinliebhaber und Genießer. Unsere Artikel und Geschichten
+                über Wein, Genuss und die Region laden zum Entdecken ein.
+            </p>
+            <a href="#artikel" class="hero-cta">
+                <span>Entdecken Sie unsere Artikel</span>
+                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                    <path d="M5 10H15M15 10L10 5M15 10L10 15" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+            </a>
+        </div>
+        <div class="scroll-indicator">
+            <div class="scroll-line"></div>
+            <span>Scrollen</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="uber-uns">
+        <div class="container">
+            <div class="about-grid">
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <svg width="100" height="100" viewBox="0 0 100 100" fill="none">
+                            <circle cx="50" cy="50" r="40" stroke="currentColor" stroke-width="2" opacity="0.3"/>
+                            <path d="M50 20C50 20 40 35 40 45C40 52.732 46.268 59 54 59C61.732 59 68 52.732 68 45C68 35 58 20 58 20H50Z" stroke="currentColor" stroke-width="2"/>
+                            <path d="M35 59H65V80C65 85.523 60.523 90 55 90H45C39.477 90 35 85.523 35 80V59Z" stroke="currentColor" stroke-width="2"/>
+                        </svg>
+                    </div>
+                </div>
+                <div class="about-content">
+                    <h2 class="section-title">Ein Konzept das überzeugt</h2>
+                    <div class="about-text">
+                        <p>
+                            Unsere Weinberichte und die Perspektive auf Wiesbaden bieten Ihnen
+                            Artikel und Geschichten über Wein, Genuss und die Region.
+                        </p>
+                        <p>
+                            Unsere Leidenschaft für Wein bringt jeden Samstag neue Artikel ins Netz.
+                            Ein besonderes Erlebnis – wir freuen uns auf Sie!
+                        </p>
+                    </div>
+                    <div class="about-stats">
+                        <div class="stat">
+                            <div class="stat-number">38</div>
+                            <div class="stat-label">Weinbar</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Geschichten</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">Sa</div>
+                            <div class="stat-label">Neue Artikel</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Articles Section -->
+    <section class="blog" id="artikel">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Aktuelle Artikel</h2>
+                <p class="section-subtitle">Weinkultur, Genuss & Geschichten aus Wiesbaden</p>
+            </div>
+
+            <div class="blog-grid">
+                {sortedPosts.map((post: CollectionEntry<'blog'>, index: number) => (
+                    <article class={`blog-card ${index === 0 ? 'blog-card-featured' : ''}`}>
+                        <div class="blog-card-image">
+                            <div class="image-overlay"></div>
+                            <span class="blog-tag">{post.data.category}</span>
+                        </div>
+                        <div class="blog-card-content">
+                            <div class="blog-meta">
+                                <span class="blog-date">{post.data.pubDate.toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
+                                <span class="blog-read-time">{post.data.readTime}</span>
+                            </div>
+                            <h3 class="blog-title">{post.data.title}</h3>
+                            <p class="blog-excerpt">
+                                {post.data.description}
+                            </p>
+                            <a href={`/blog/${post.slug}`} class="blog-read-more">
+                                <span>Weiterlesen</span>
+                                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                    <path d="M4 8H12M12 8L8 4M12 8L8 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="wine-glass-silhouette"></div>
+                    </article>
+                ))}
+            </div>
+        </div>
+    </section>
+</MainLayout>

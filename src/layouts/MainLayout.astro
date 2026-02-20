@@ -1,0 +1,78 @@
+---
+interface Props {
+    title?: string;
+    description?: string;
+}
+
+const {
+    title = 'Weinbar38 - Unser Weinblog',
+    description = 'Kreative Geschichten treffen Weinkultur: Ein Konzept das überzeugt.'
+} = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{title}</title>
+    <meta name="description" content={description}>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=Cinzel:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="/" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 0.5rem;">
+                    <span class="logo-number">38</span>
+                    <span class="logo-text">Weinbar38</span>
+                </a>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/#home" class="nav-link">Home</a></li>
+                <li><a href="/#artikel" class="nav-link">Artikel</a></li>
+                <li><a href="/#uber-uns" class="nav-link">Über Uns</a></li>
+            </ul>
+            <div class="nav-decorative">
+                <svg width="30" height="30" viewBox="0 0 30 30" fill="none">
+                    <path d="M15 2C15 2 12 8 12 12C12 14.2091 13.7909 16 16 16C18.2091 16 20 14.2091 20 12C20 8 17 2 17 2H15Z" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M10 16H20V25C20 26.6569 18.6569 28 17 28H13C11.3431 28 10 26.6569 10 25V16Z" stroke="currentColor" stroke-width="1.5"/>
+                </svg>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Content -->
+    <slot />
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <span class="logo-number">38</span>
+                    <span class="logo-text">Weinbar38</span>
+                </div>
+                <div class="footer-info">
+                    <p>Unser Weinblog - Weinkultur aus Wiesbaden</p>
+                    <p>Kreative Geschichten treffen Weinkultur</p>
+                </div>
+                <div class="footer-links">
+                    <a href="#impressum">Impressum</a>
+                    <span class="footer-divider">·</span>
+                    <a href="#datenschutz">Datenschutz</a>
+                </div>
+            </div>
+            <div class="footer-ornament">
+                <span>◆</span>
+            </div>
+        </div>
+    </footer>
+
+    <script is:inline src="/script.js"></script>
+</body>
+</html>
